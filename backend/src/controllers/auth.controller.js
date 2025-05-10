@@ -40,7 +40,7 @@ export const register= async (req , res )=>{
 
         })
 
-        res.status(200).json({
+        res.status(201).json({
             success: "true",
             message: "User created successfully",
             user : {
@@ -62,7 +62,93 @@ export const register= async (req , res )=>{
     }
 }
 export const login= async (req , res )=>{
-    
+    const {email , password} = req.body;
+    try {
+        const user = await db.user.findUnique({
+                where: {
+                        email
+                    },
+            })
+        if(!user){
+            return res.status(401).json({
+                error: "User not found"
+            })
+        }
+        const isValidPassword = await bcrypt.compare(password,user.password);
+        if(!isValidPassword){
+            return res.status(401).json({
+                error: "Invalid credintials"
+            })
+        }
+        const token = jwt.sign({id:user.id , email:user.email , role:user.role},process.env.JWT_SECRET,{
+            expiresIn : "7d"
+        })
+
+        res.cookie("jwt", token,{
+            httpOnly : true,
+            sameSite : "strict",
+            secure : process.env.NODE_ENV !== "development",
+            maxAge : 1000*60*60*24*7
+
+        })
+
+        res.status(200).json({
+            success: "true",
+            message: "User logged in successfully",
+            user : {
+                id:user.id,
+                name:user.name,
+                email : user.email,
+                role : user.role
+            }
+            
+        })
+
+
+    } catch (error) {
+        console.error("Error signing in user:", error);
+        res.status(500).json({
+            error:"Error signing in user"
+        })
+
+        
+    }
 }
-export const logout= async (req , res )=>{}
-export const getMe= async (req , res )=>{}
+export const logout= async (req , res )=>{
+    try {
+        res.clearCookie("jwt",{
+            httpOnly : true,
+            sameSite : "strict",
+            secure : process.env.NODE_ENV !== "development",
+            
+
+        })
+        res.status(200).json({
+            success: "true",
+            message: "User logged out successfully",
+        })
+    } catch (error) {
+        console.error("Error logging out user:", error);
+        res.status(500).json({
+            error: "Error logging out user"
+        })
+        
+    }
+}
+export const getMe= async (req , res )=>{
+    try {
+        res.status(200).json({
+            success: "true",
+            message: "User data retrieved successfully",
+            user : req.user
+        })
+        
+    } catch (error) {
+        console.error("Error retrieving user data:", error);
+        res.status(500).json({
+            error: "Error retrieving user data"
+
+        })
+        
+    }
+}
