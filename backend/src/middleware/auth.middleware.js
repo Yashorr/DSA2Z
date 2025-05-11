@@ -49,7 +49,8 @@ export const checkAdmin = async (req , res , next) =>{
                 role : true ,
             }
         })
-        if(!admin || admin !=="ADMIN"){
+        
+        if(!admin || admin.role !=="ADMIN"){
             return res.status(403).json({msg : "You are not authorized to get access of this resource"})
         }
         next();

@@ -1,17 +1,20 @@
+import axios from 'axios';
 export const getLanguageId = (language) =>{
-    const languageMao = {
+    const languageMap = {
         "PYTHON": 71 ,
         "JAVASCRIPT": 63 ,
         "JAVA":62,
-        "C++": 54 ,
+        "CPP": 54 ,
     }
 
-    return languageMao[language.toUpperCase()];
+    return languageMap[language.toUpperCase()];
 }
 
-export const submitBatch = async (submission) =>{
+export const submitBatch = async (submissions) =>{
 
-    const {data} = await axios.post(`${process.env.JUDGE0_BASE_URL}/submissions/batch?base64_encoded=false`)
+    const {data} = await axios.post(`${process.env.JUDGE0_BASE_URL}/submissions/batch?base64_encoded=false`,{
+        submissions
+    })
 
     return data ;
 }
