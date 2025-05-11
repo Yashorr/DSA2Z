@@ -33,7 +33,30 @@ export const authMiddleware = async (req , res , next) =>{
         next();
     } catch (error) {
         console.error(error);
-        res.status(500).json({msg : "Internal server error while verifying token"}) ;
+        res.status(500).json({msg : "Please login to access this resource"}) ;
+        
+    }
+}
+
+export const checkAdmin = async (req , res , next) =>{
+    try {
+        const user = req.user.id ;
+        const admin = await db.user.findUnique({
+            where : {
+                id : user
+            },
+            select : {
+                role : true ,
+            }
+        })
+        if(!admin || admin !=="ADMIN"){
+            return res.status(403).json({msg : "You are not authorized to get access of this resource"})
+        }
+        next();
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({msg : "You are not authorized to get access of this"}) ;
         
     }
 }

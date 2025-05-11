@@ -80,7 +80,7 @@ export const login= async (req , res )=>{
                 error: "Invalid credintials"
             })
         }
-        const token = jwt.sign({id:user.id , email:user.email , role:user.role},process.env.JWT_SECRET,{
+        const token = jwt.sign({id:user.id },process.env.JWT_SECRET,{
             expiresIn : "7d"
         })
 
