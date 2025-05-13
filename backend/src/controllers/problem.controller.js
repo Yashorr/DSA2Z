@@ -10,9 +10,7 @@ export const createProblem = async (req , res) =>{
 
     try {
         for(const [language, code] of Object.entries(referenceSolutions)){
-            const languageId = getLanguageId(language);
-
-            console.log(languageId);
+            const languageId = getLanguageId(language);            
             
 
             if(!languageId){
