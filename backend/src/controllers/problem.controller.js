@@ -241,5 +241,33 @@ export const deleteProblem = async (req , res) =>{
 }
 
 export const getSolvedProblems = async (req , res) =>{
+    try {
+        const problems = await db.problem.findMany({
+            where: {
+                solvedBy : {
+                    some: {
+                        userId: req.user.id
+                    }
+                }
+            },
+            include: {
+                solvedBy : {
+                    where : {
+                        userId : req.user.id
+                    }
+                }
+            }
+        })
+        res.status(200).json({ 
+            success: true,
+            message : "Solved problems retrieved successfully",
+            problems: problems });
+
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal Server Error while retrieving solved problems" });
+        
+    }
 
 }
