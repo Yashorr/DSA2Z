@@ -6,6 +6,7 @@ import problemRoutes from "./routes/problem.routes.js";
 import executionRoutes from "./routes/executeCode.routes.js";
 import submissionRoutes from "./routes/submission.routes.js";
 import playlistRoutes from "./routes/playlist.routes.js";
+import cors from "cors";
 
 dotenv.config();
 
@@ -14,6 +15,10 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({
+    origin : ["http://localhost:5173" ],
+    credentials : true
+}));
 
 app.get("/",(req,res)=>{
     res.send("Hello guys, Welcome to DSA2Z🐬")

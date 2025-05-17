@@ -3,7 +3,14 @@ import { db } from "../libs/db.js";
 
 export const authMiddleware = async (req , res , next) =>{
     try {
-        const token = req.cookies.jwt || req.header("Authorization").replace("Bearer ", "");
+         let token = req.cookies?.jwt;
+
+        if (!token) {
+            const authHeader = req.header("Authorization");
+            if (authHeader && authHeader.startsWith("Bearer ")) {
+                token = authHeader.replace("Bearer ", "");
+        }
+        }
         if(!token){
             return res.status(401).json({msg : "Please login to access this resource"}) ;
         }

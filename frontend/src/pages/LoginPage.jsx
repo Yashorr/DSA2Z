@@ -13,6 +13,7 @@ import {
 
 import {z} from 'zod' ;
 import AuthImagePattern from '../components/AuthImagePattern';
+import { useAuthStore } from '../store/useAuthStore';
 
 const loginSchema = z.object({
     email: z.string().email('Invalid email').min(1, 'Email is required'),
@@ -24,9 +25,15 @@ const loginSchema = z.object({
 const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: {errors}} = useForm({resolver: zodResolver(loginSchema)})
+    const {login , isLoggingIn} = useAuthStore();
 
     const onSubmit = async (data) =>{
-        console.log(data)
+        try {
+          await login(data);
+        } catch (error) {
+          console.error(error);
+          
+        }
     }
   return (
     <div className='h-screen grid lg:grid-cols-2'>
@@ -122,18 +129,18 @@ const LoginPage = () => {
             <div>
               <button
                 type="submit"
-                // disabled={isLogin}
+                disabled={isLoggingIn}
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-900 bg-gradient-to-r from-[#4FD1C5] to-[#4FD1C5]/80 hover:from-[#4FD1C5]/90 hover:to-[#4FD1C5] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#4FD1C5] focus:ring-offset-gray-900"
               >
-                {/* {isLogin ? (
+                {isLoggingIn ? (
                   <>
                     <Loader2 className="animate-spin -ml-1 mr-2 h-4 w-4" />
                       Logging in...
                   </>
                 ) : (
                   "Login"
-                )} */}
-                Log in
+                )}
+               
               </button>
             </div>
           </form>
