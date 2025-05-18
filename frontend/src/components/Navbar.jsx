@@ -10,13 +10,8 @@ const Navbar = () => {
       <nav className="mx-auto w-[95%] max-w-5xl z-50 bg-gradient-to-r from-[#1e293b]/90 to-[#0f172a]/90 backdrop-blur-xl border border-[#4FD1C5]/20 rounded-2xl shadow-lg shadow-[#4FD1C5]/10 px-6 py-3 mt-5">
       <div className="flex w-full justify-between items-center">
         {/* Logo Section */}
-        <Link to="/" className="flex items-center gap-3 transition-transform hover:scale-105 duration-200">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#4FD1C5] to-[#4FD1C5]/60 p-2 shadow-lg shadow-[#4FD1C5]/20 animate-pulse">
-            <img src="/dsa2z.svg" alt="DSA2Z Logo" className="w-full h-full" />
-          </div>
-          <span className="text-lg md:text-2xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent hidden md:block">
-            DSA2Z
-          </span>
+        <Link to="/" className="flex items-center gap-3 transition-transform scale-200 pl-5 hover:scale-205 duration-200">
+          <img src="/logo.png" alt="DSA2Z Logo" className="w-25 h-10" />
         </Link>
 
         {/* User Profile and Dropdown */}

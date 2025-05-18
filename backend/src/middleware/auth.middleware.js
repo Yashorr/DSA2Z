@@ -12,12 +12,12 @@ export const authMiddleware = async (req , res , next) =>{
         }
         }
         if(!token){
-            return res.status(401).json({msg : "Please login to access this resource"}) ;
+            return res.status(401).json({message : "Please login to access this resource"}) ;
         }
         const verify = jwt.verify(token , process.env.JWT_SECRET) ;
 
         if(!verify){
-            return res.status(401).json({msg : "Invalid token"}) ;
+            return res.status(401).json({ message : "Invalid token"}) ;
         }
         
         const user = await db.user.findUnique({
@@ -33,14 +33,14 @@ export const authMiddleware = async (req , res , next) =>{
         }) ;
         
         if(!user){
-            return res.status(401).json({msg : "User not found"}) ;
+            return res.status(401).json({message : "User not found"}) ;
         }
 
         req.user=user;
         next();
     } catch (error) {
         console.error(error);
-        res.status(500).json({msg : "Please login to access this resource"}) ;
+        res.status(500).json({message: "Please login to access this resource"}) ;
         
     }
 }
@@ -58,13 +58,13 @@ export const checkAdmin = async (req , res , next) =>{
         })
         
         if(!admin || admin.role !=="ADMIN"){
-            return res.status(403).json({msg : "You are not authorized to get access of this resource"})
+            return res.status(403).json({message : "You are not authorized to get access of this resource"})
         }
         next();
         
     } catch (error) {
         console.error(error);
-        res.status(500).json({msg : "You are not authorized to get access of this"}) ;
+        res.status(500).json({message : "You are not authorized to get access of this"}) ;
         
     }
 }
