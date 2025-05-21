@@ -8,7 +8,8 @@ export const executeCode = async(req,res) =>{
         const userId = req.user.id;
 
         if(!Array.isArray(stdin) || !Array.isArray(expected_outputs) || stdin.length !== expected_outputs.length || stdin.length === 0){
-            return res.status(400).json({error: "Invalid test cases or missing test cases" });
+            return res.status(400).json({error: "Invalid test cases or missing test cases",
+             });
         } 
 
         const submissions = stdin.map((input)=>({

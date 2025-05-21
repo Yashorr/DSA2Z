@@ -7,7 +7,7 @@ import LogoutButton from './LogoutButton'
 const Navbar = () => {
     const {authUser} = useAuthStore()
   return (
-      <nav className="mx-auto w-[95%] max-w-5xl z-50 bg-gradient-to-r from-[#1e293b]/90 to-[#0f172a]/90 backdrop-blur-xl border border-[#4FD1C5]/20 rounded-2xl shadow-lg shadow-[#4FD1C5]/10 px-6 py-3 mt-5">
+      <nav className="mx-auto w-[100%] max-w-5xl z-50 bg-gradient-to-r from-[#1e293b]/90 to-[#0f172a]/90 backdrop-blur-xl border border-[#4FD1C5]/20 rounded-2xl shadow-lg shadow-[#4FD1C5]/10 px-6 py-3 mt-5">
       <div className="flex w-full justify-between items-center">
         {/* Logo Section */}
         <Link to="/" className="flex items-center gap-3 transition-transform scale-200 pl-5 hover:scale-205 duration-200">
