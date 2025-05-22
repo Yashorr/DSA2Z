@@ -25,4 +25,14 @@ export const useExecutionStore = create((set) =>({
         }
     },
 
+    clearSubmission : async () =>{
+        try {
+            set({submission : null});
+        } catch (error) {
+            console.log("Error in clearing submission " ,error);
+
+        }
+
+    },
+
 }))

@@ -23,6 +23,7 @@ import SubmissionResults from "../components/SubmissionResult";
 import SubmissionsList from "../components/SubmissionList";
 
 
+
 const ProblemPage = () => {
   const { id } = useParams()
   const { getProblemById, problem, isProblemLoading } = useProblemStore()
@@ -31,16 +32,20 @@ const ProblemPage = () => {
   const [activeTab, setActiveTab] = useState("description")
   const [testCases, setTestCases] = useState([])
   const [isBookmarked, setIsBookmarked] = useState(false)
-  const {isExecuting , submission, executeCode} = useExecutionStore();
+  const {isExecuting , submission,clearSubmission, executeCode} = useExecutionStore();
   // First useEffect - for fetching problem data
   useEffect(() => {
     console.log("useEffect triggered")
     getProblemById(id)
     console.log("Fetch initiated", id)
+    clearSubmission()
+    
     // Don't log problem here as it won't be updated yet
   }, [id, getProblemById]) // Added getProblemById to dependency array
 
   console.log("Component rendering", problem, isProblemLoading)
+
+  
 
   // Second useEffect - for updating code and test cases when problem data changes
   useEffect(() => {

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Route,Routes , Navigate } from 'react-router-dom'
+import { Route,Routes , Navigate, useLocation } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import SignUpPage from './pages/SignUpPage'
 import HomePage from './pages/HomePage'
@@ -10,11 +10,14 @@ import Layout from './layout/Layout'
 import AdminRoute from './components/AdminRoute'
 import AddProblem from './pages/AddProblem'
 import ProblemPage from './pages/ProblemPage'
+import ProfilePage from './pages/ProfilePage'
 const App = () => {
   const {authUser, checkAuth , isCheckingAuth} = useAuthStore()
   useEffect(() => {
    checkAuth()
   }, [checkAuth])
+
+   const location = useLocation()
 
   if( isCheckingAuth && !authUser ){ return (
     <div className="flex items-center justify-center h-screen">
@@ -28,15 +31,16 @@ const App = () => {
   <div className='flex flex-col items-center justify-start'>
     <Toaster />
     <Routes>
-      <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to={"/"}/>}  />
-      <Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to={"/"}/>}/>
+      <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to={location.state?.from?.pathname || "/"} />}   />
+      <Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to={"/"} state={{ from: location }} />}/>
       <Route path='/' element={<Layout />}>
-        <Route index element={authUser ? <HomePage /> : <Navigate to={"/login"} />} />
+        <Route index element={authUser ? <HomePage /> : <Navigate to={"/login"} state={{ from: location }}  />} />
       </Route>
       <Route element={<AdminRoute />}>
-        <Route path="/add-problem" element={authUser ? <AddProblem /> : <Navigate to={"/login"} />} />
+        <Route path="/add-problem" element={authUser ? <AddProblem /> : <Navigate to={"/login"} state={{ from: location }} />} />
       </Route>
-      <Route path="/problem/:id" element={authUser ? <ProblemPage /> : <Navigate to={"/login"} />} />
+      <Route path="/problem/:id" element={authUser ? <ProblemPage /> : <Navigate to={"/login"} state={{ from: location }}  />} />
+      <Route path="/profile" element ={authUser ? <ProfilePage /> : <Navigate to = {"/login"} state={{ from: location }} />} />
       
     </Routes>
   </div>
