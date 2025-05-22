@@ -5,11 +5,18 @@ import { Link } from "react-router-dom";
 
 import { Bookmark, PencilIcon, Trash, TrashIcon, Plus, Loader2 } from "lucide-react";
 import { useActions } from '../store/useAction';
+import { usePlaylistStore } from '../store/usePlayListStore';
+import CreatePlaylistModal from './CreatePlaylistModal';
+import AddToPlaylist from './AddToPlaylist';
 
 const ProblemTable = ({problems}) => {
     const {authUser} = useAuthStore()
-
+    const {createPlaylist} = usePlaylistStore (); 
     const {isDeletingProblem,isUpdatingProblem, onDeleteProblem,onEditProblem} = useActions();
+
+    const [isCreateModelOpen, setIsCreateModelOpen] = useState(false);
+    const [isAddToPlaylistModelOpen , setIsAddToPlaylistModelOpen] = useState(false);
+    const [idToAdd, setIdToAdd] = useState(null);
 
     const [search , setSearch] = useState("");
     const [difficulty , setDifficulty] = useState("ALL");
@@ -48,7 +55,14 @@ const ProblemTable = ({problems}) => {
       onDeleteProblem(problemId);
     }
     const handleAddToPlaylist = (problemId) =>{
+      setIsAddToPlaylistModelOpen(true);
+      setIdToAdd(problemId);
 
+
+    }
+
+    const handleCreatePlaylist = async (data) =>{
+        await createPlaylist(data);
     }
 
 
@@ -56,7 +70,7 @@ const ProblemTable = ({problems}) => {
     <div className="w-full   mx-auto mt-10">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Problems</h2>
-        <button className="btn btn-primary bg-[#4FD1C5] text-white gap-2" onClick={() => {}}>
+        <button className="btn btn-primary bg-[#4FD1C5] text-white gap-2" onClick={() => setIsCreateModelOpen(true)}>
           <Plus className="w-4 h-4" />
           Create Playlist
         </button>
@@ -210,6 +224,9 @@ const ProblemTable = ({problems}) => {
           Next
         </button>
       </div>
+
+      <CreatePlaylistModal isOpen={isCreateModelOpen} onClose={()=>setIsCreateModelOpen(false)} onSubmit={handleCreatePlaylist} />
+      <AddToPlaylist isOpen={isAddToPlaylistModelOpen} onClose={()=>setIsAddToPlaylistModelOpen(false)} problemId={idToAdd} />
 
     </div>
   )
