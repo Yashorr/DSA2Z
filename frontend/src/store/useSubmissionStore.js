@@ -1,11 +1,12 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
+import { LogIn } from "lucide-react";
 
 export const useSubmissionStore = create((set, get) => ({
   isLoading: false,
-  submissions: [],
-  submission: null,
+  submissionsList: [],
+  submissionForSubmissionStore: null,
   submissionCount: null,
 
   getAllSubmissions: async () => {
@@ -27,10 +28,12 @@ export const useSubmissionStore = create((set, get) => ({
   getSubmissionForProblem: async (problemId) => {
     try {
       const res = await axiosInstance.get(
-        `/submission/get-submission/${problemId}`
+        `/submission/get-submissions/${problemId}`
       );
+      
+      
 
-      set({ submission: res.data.submissions });
+      set({ submissionForSubmissionStore: res.data.submission });
 
       
 
@@ -39,15 +42,13 @@ export const useSubmissionStore = create((set, get) => ({
 
       toast.error("Error getting submissions for problem");
       
-    } finally {
-      set({ isLoading: false });
     }
   },
 
   getSubmissionCountForProblem: async (problemId) => {
     try {
       const res = await axiosInstance.get(
-        `/submission/get-submissions-count/${problemId}`
+        `/submission/get-submission-count/${problemId}`
       );                
 
       set({ submissionCount: res.data.count });

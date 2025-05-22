@@ -21,6 +21,7 @@ import { useExecutionStore } from "../store/useExecutionStore";
 import { getLanguageId } from "../lib/lang";
 import SubmissionResults from "../components/SubmissionResult";
 import SubmissionsList from "../components/SubmissionList";
+import { useSubmissionStore } from "../store/useSubmissionStore";
 
 
 
@@ -33,17 +34,27 @@ const ProblemPage = () => {
   const [testCases, setTestCases] = useState([])
   const [isBookmarked, setIsBookmarked] = useState(false)
   const {isExecuting , submission,clearSubmission, executeCode} = useExecutionStore();
+  const {submissionForSubmissionStore , isLoading:isSubmissionsLoading ,submissionCount,getSubmissionForProblem , getSubmissionCountForProblem  } = useSubmissionStore();
   // First useEffect - for fetching problem data
   useEffect(() => {
-    console.log("useEffect triggered")
+    
     getProblemById(id)
-    console.log("Fetch initiated", id)
+    getSubmissionCountForProblem(id);
+    
     clearSubmission()
     
     // Don't log problem here as it won't be updated yet
   }, [id, getProblemById]) // Added getProblemById to dependency array
 
-  console.log("Component rendering", problem, isProblemLoading)
+  useEffect(()=>{
+    if(activeTab==="submissions"){
+      getSubmissionForProblem(id)
+    }
+    
+  },[activeTab,id])
+
+ 
+  
 
   
 
@@ -64,7 +75,7 @@ const ProblemPage = () => {
     }
   }, [problem, selectedLanguage])
 
-  const submissionCount = 10
+ 
   const handleLanguageChange = (e) => {
     const value = e.target.value
     setSelectedLanguage(value)
@@ -134,11 +145,11 @@ const ProblemPage = () => {
         )
       case "submissions":
         return (
-            // <SubmissionsList
-            //   submissions={submissions}
-            //   isLoading={isSubmissionsLoading}
-            // />
-          <h2>No submissions yet</h2>
+            <SubmissionsList
+              submissions={submissionForSubmissionStore}
+              isLoading={isSubmissionsLoading}
+            />
+          // <h2>No submissions yet</h2>
         )
       case "discussion":
         return <div className="p-4 text-center text-base-content/70">No discussions yet</div>
@@ -271,7 +282,7 @@ const ProblemPage = () => {
                 </button>
               </div>
 
-              <div className="h-[400px] w-full">
+              <div className="h-[450px] w-full">
                 <Editor
                   height="100%"
                   language={selectedLanguage.toLowerCase()}

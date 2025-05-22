@@ -20,6 +20,7 @@ export const executeCode = async(req,res) =>{
                 
         }))
         
+       
         
 
         const submitResponse = await submitBatch(submissions);
@@ -30,16 +31,28 @@ export const executeCode = async(req,res) =>{
 
         const result = await pollBatchResult(token);
 
-        const allPasses = true ; 
+        
+        
+
+       let allPasses = true ; 
+
+       
 
         const refinedResults= result.map((respo, index)=>{
+            
             const stdout=respo.stdout?.trim();
+            
             const expectedOutput=expected_outputs[index]?.trim();
+             
             const pass = stdout === expectedOutput;
+
+           
 
             if(!pass){
                 allPasses=false;
             }
+
+            
 
             return {
                 testCase : index + 1,
@@ -53,6 +66,9 @@ export const executeCode = async(req,res) =>{
                 time : respo.time ? `${respo.time} s` : null ,
             }
         })
+
+   
+        
 
         const submission = await db.submission.create({
             data:{

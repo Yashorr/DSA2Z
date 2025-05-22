@@ -3,10 +3,13 @@ import{ useAuthStore} from "../store/useAuthStore"
 
 import { Link } from "react-router-dom";
 
-import { Bookmark, PencilIcon, Trash, TrashIcon, Plus } from "lucide-react";
+import { Bookmark, PencilIcon, Trash, TrashIcon, Plus, Loader2 } from "lucide-react";
+import { useActions } from '../store/useAction';
 
 const ProblemTable = ({problems}) => {
     const {authUser} = useAuthStore()
+
+    const {isDeletingProblem,isUpdatingProblem, onDeleteProblem,onEditProblem} = useActions();
 
     const [search , setSearch] = useState("");
     const [difficulty , setDifficulty] = useState("ALL");
@@ -41,7 +44,9 @@ const ProblemTable = ({problems}) => {
     
     },[currentPage , filteredProblems])
 
-    const handleDelete = (problemId) =>{}
+    const handleDelete = (problemId) =>{
+      onDeleteProblem(problemId);
+    }
     const handleAddToPlaylist = (problemId) =>{
 
     }
@@ -155,7 +160,8 @@ const ProblemTable = ({problems}) => {
                               onClick={() => handleDelete(problem.id)}
                               className="btn btn-sm btn-error"
                             >
-                              <TrashIcon className="w-4 h-4 text-white" />
+                              {isDeletingProblem ? <Loader2 className='animate-spin h-4 w-4' /> :  <TrashIcon className="w-4 h-4 text-white" />}
+                             
                             </button>
                             <button disabled className="btn btn-sm btn-warning">
                               <PencilIcon className="w-4 h-4 text-white" />
