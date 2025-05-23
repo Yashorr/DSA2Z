@@ -8,6 +8,7 @@ export const useProblemStore = create((set) => ({
     solvedProblems : [],
     isProblemLoading : false,
     isProblemsLoading : false,
+    isProblemSolved : false,
 
     getAllProblem : async () => {
         try {
@@ -47,6 +48,7 @@ export const useProblemStore = create((set) => ({
 
     getSolvedProblems : async () => {
         try {
+            set({isProblemSolved: true});
             const response = await axiosInstance.get('/problems/get-solved-problems');
             set({solvedProblems : response.data.problems});
             
@@ -54,15 +56,11 @@ export const useProblemStore = create((set) => ({
             console.log(error);
             toast.error ('Failed to load solved problems');
             
+        }finally{
+             set({isProblemSolved: false});
         }
 
     },
 
-    updateProblem : async () =>{
-
-    },
-
-    deleteProblem : async () => {
-
-    },
+    
 }))

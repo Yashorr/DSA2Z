@@ -7,6 +7,8 @@ export const usePlaylistStore = create((set, get) => ({
   currentPlaylist: null,
   isLoading: false,
   error: null,
+  isRemovingProblem :false,
+  isDeletingPlaylist:false,
 
   createPlaylist: async (playlistData) => {
     try {
@@ -80,9 +82,10 @@ export const usePlaylistStore = create((set, get) => ({
 
   removeProblemFromPlaylist: async (playlistId, problemIds) => {
     try {
-      set({ isLoading: true });
-      await axiosInstance.post(`/playlist/${playlistId}/remove-problem`, {
-        problemIds,
+      set({ isRemovingProblem: true });
+      await axiosInstance.delete(`/playlist/${playlistId}/remove-problem`, {
+        data: { problemIds :[problemIds] },
+        
       });
 
       toast.success("Problem removed from playlist");
@@ -95,13 +98,13 @@ export const usePlaylistStore = create((set, get) => ({
       console.error("Error removing problem from playlist:", error);
       toast.error("Failed to remove problem from playlist");
     } finally {
-      set({ isLoading: false });
+      set({ isRemovingProblem: false });
     }
   },
 
   deletePlaylist: async (playlistId) => {
     try {
-      set({ isLoading: true });
+      set({ isDeletingPlaylist: true });
       await axiosInstance.delete(`/playlist/${playlistId}`);
 
       set((state) => ({
@@ -113,7 +116,7 @@ export const usePlaylistStore = create((set, get) => ({
       console.error("Error deleting playlist:", error);
       toast.error("Failed to delete playlist");
     } finally {
-      set({ isLoading: false });
+      set({ isDeletingPlaylist: false });
     }
   },
 }));
