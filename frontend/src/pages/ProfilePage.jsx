@@ -38,6 +38,8 @@ const ProfilePage = () => {
     
   },[])
 
+  
+
   useEffect(() => {
     setActiveFilter(submissionsList.slice(-10).reverse());
   }, [submissionsList]);
@@ -92,18 +94,18 @@ const ProfilePage = () => {
   
 
 
-  const handleDeletePlaylist = (id) => {
-    deletePlaylist(id);
-    getAllPlaylists();
+  const handleDeletePlaylist = async (id) => {
+    await deletePlaylist(id);
+    await getAllPlaylists();
 
 
     }
   
 
-  const deleteProblemFromPlaylist = (playlistId, problemId) => {
+  const deleteProblemFromPlaylist = async (playlistId, problemId) => {
     console.log(playlistId,problemId);
-    removeProblemFromPlaylist(playlistId,problemId);
-    getAllPlaylists();
+    await removeProblemFromPlaylist(playlistId,problemId);
+    await getAllPlaylists();
 
   };
 
@@ -350,7 +352,9 @@ const ProfilePage = () => {
                     </div>
                     <div className="flex items-center gap-4">
                       <button
-                          onClick={() => handleDeletePlaylist(playlist.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeletePlaylist(playlist.id)}}
                           className="flex items-center gap-2 px-4 py-2 bg-[#F97316] text-gray-900 font-medium rounded-lg hover:bg-[#E85D04] transition-colors"
                         >
                           <Plus size={16} />

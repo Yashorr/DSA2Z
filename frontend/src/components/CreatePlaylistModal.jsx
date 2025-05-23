@@ -11,7 +11,7 @@ const CreatePlaylistModal = ({isOpen, onClose ,onSubmit}) => {
         onClose();
     }
 
-    console.log(isOpen)
+    
 
     if(!isOpen) return null ; 
 

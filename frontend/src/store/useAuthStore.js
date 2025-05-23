@@ -14,7 +14,7 @@ export const useAuthStore = create((set) => ({
         try {
             const response = await axiosInstance.get('/auth/get-me');
             set({authUser: response.data.user});
-            console.log("check auth response :", response.data );
+            
             
             
 

@@ -11,15 +11,18 @@ import AdminRoute from './components/AdminRoute'
 import AddProblem from './pages/AddProblem'
 import ProblemPage from './pages/ProblemPage'
 import ProfilePage from './pages/ProfilePage'
+import LandingPage from './pages/LandingPage'
 const App = () => {
   const {authUser, checkAuth , isCheckingAuth} = useAuthStore()
   useEffect(() => {
    checkAuth()
   }, [checkAuth])
 
-   const location = useLocation()
 
-  if( isCheckingAuth && !authUser ){ return (
+
+   
+
+  if( isCheckingAuth || !authUser ){ return (
     <div className="flex items-center justify-center h-screen">
         <Loader className="size-10 animate-spin" />
       </div>
@@ -31,16 +34,17 @@ const App = () => {
   <div className='flex flex-col items-center justify-start'>
     <Toaster />
     <Routes>
-      <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to={location.state?.from?.pathname || "/"} />}   />
-      <Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to={"/"} state={{ from: location }} />}/>
+      <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to={ "/"} />}   />
+      <Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to={"/"}  />}/>
       <Route path='/' element={<Layout />}>
-        <Route index element={authUser ? <HomePage /> : <Navigate to={"/login"} state={{ from: location }}  />} />
+        <Route index element={authUser ? <HomePage /> : <Navigate to={"/login"}   />} />
       </Route>
       <Route element={<AdminRoute />}>
-        <Route path="/add-problem" element={authUser ? <AddProblem /> : <Navigate to={"/login"} state={{ from: location }} />} />
+        <Route path="/add-problem" element={authUser ? <AddProblem /> : <Navigate to={"/login"}  />} />
       </Route>
-      <Route path="/problem/:id" element={authUser ? <ProblemPage /> : <Navigate to={"/login"} state={{ from: location }}  />} />
-      <Route path="/profile" element ={authUser ? <ProfilePage /> : <Navigate to = {"/login"} state={{ from: location }} />} />
+      <Route path="/problem/:id" element={authUser ? <ProblemPage /> : <Navigate to={"/login"}   />} />
+      <Route path="/profile" element ={authUser ? <ProfilePage /> : <Navigate to = {"/login"}  />} />
+      <Route path="/land" element={<LandingPage/>} />
       
     </Routes>
   </div>
