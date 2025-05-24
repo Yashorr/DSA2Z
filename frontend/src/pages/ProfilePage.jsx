@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { ChevronDown, Plus, Trash2, Edit, Filter, Loader } from 'lucide-react';
+import { ChevronDown, Plus, Trash2, Edit, Filter, Loader, LogOut } from 'lucide-react';
 import { useAuthStore } from '../store/useAuthStore';
 import { useSubmissionStore } from '../store/useSubmissionStore';
 import { useProblemStore } from '../store/useProblemStore';
 import { usePlaylistStore } from '../store/usePlayListStore';
+import LogoutButton from '../components/LogoutButton';
 
 const ProfilePage = () => {
   const [activeFilter, setActiveFilter] = useState([]);
@@ -119,9 +120,9 @@ const ProfilePage = () => {
 
   const getDifficultyColor = (difficulty) => {
     switch (difficulty) {
-      case 'Easy': return 'text-green-400 bg-green-900/30';
-      case 'Medium': return 'text-yellow-400 bg-yellow-900/30';
-      case 'Hard': return 'text-red-400 bg-red-900/30';
+      case 'EASY': return 'text-green-400 bg-green-900/30';
+      case 'MEDIUM': return 'text-yellow-400 bg-yellow-900/30';
+      case 'HARD': return 'text-red-400 bg-red-900/30';
       default: return 'text-gray-400 bg-gray-900/30';
     }
   };
@@ -137,14 +138,14 @@ const ProfilePage = () => {
   )
 
   return (
-    <div className="min-h-screen bg-gray-950 relative overflow-hidden w-[65%] text-gray-300">
+    <div className="min-h-screen  relative overflow-hidden w-[65%] text-gray-300">
       {/* Gradient Background Blobs */}
        <div className="fixed top-16 left-0 w-1/3 h-1/3 bg-[#4FD1C5] opacity-20 blur-3xl z-[-1] rounded-md"></div>
       <div className="fixed bottom-16 right-0 w-1/3 h-1/3 bg-[#F97316] opacity-20 blur-3xl z-[-1] rounded-md"></div>
 
       <div className="container mx-auto px-6 py-8 max-w-8xl">
         {/* Profile Section */}
-        <div className="bg-gray-900 rounded-2xl shadow-lg p-8 mb-8 border border-gray-800">
+        <div className=" rounded-2xl shadow-lg p-8 mb-8 border border-gray-800">
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-3xl font-bold text-gray-100">Profile</h1>
             {/* <div className="flex gap-3">
@@ -165,28 +166,28 @@ const ProfilePage = () => {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2">Name</label>
-                <div className="p-3 bg-gray-800 rounded-lg border border-gray-700">{authUser.name}</div>
+                <div className="p-3  rounded-lg border border-gray-700">{authUser.name}</div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2">Role</label>
-                <div className="p-3 bg-gray-800 rounded-lg border border-gray-700">{authUser.role}</div>
+                <div className="p-3  rounded-lg border border-gray-700">{authUser.role}</div>
               </div>
             </div>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2">Email</label>
-                <div className="p-3 bg-gray-800 rounded-lg border border-gray-700">{authUser.email}</div>
+                <div className="p-3  rounded-lg border border-gray-700">{authUser.email}</div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2">User ID</label>
-                <div className="p-3 bg-gray-800 rounded-lg border border-gray-700 font-mono text-sm">{authUser.id}</div>
+                <div className="p-3  rounded-lg border border-gray-700 font-mono text-sm">{authUser.id}</div>
               </div>
             </div>
           </div>
         </div>
 
         {/* My Submissions Section */}
-        <div className="bg-gray-900 rounded-2xl shadow-lg p-8 mb-8 border border-gray-800">
+        <div className=" rounded-2xl shadow-lg p-8 mb-8 border border-gray-800">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-100">My Submissions</h2>
             <div className="flex gap-2">
@@ -195,7 +196,7 @@ const ProfilePage = () => {
                 className={`px-4 py-2 rounded-lg transition-colors ${
                   activeColor === "Total" 
                     ? 'bg-[#4FD1C5] text-gray-900 font-medium' 
-                    : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                    : 'text-gray-400 hover:bg-gray-700'
                 }`}
               >
                 All ({submissionsList.length})
@@ -205,7 +206,7 @@ const ProfilePage = () => {
                 className={`px-4 py-2 rounded-lg transition-colors ${
                   activeColor === "Accepted"
                     ? 'bg-[#4FD1C5] text-gray-900 font-medium' 
-                    : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                    : ' text-gray-400 hover:bg-gray-700'
                 }`}
               >
                 Accepted ({acceptedNum})
@@ -256,7 +257,7 @@ const ProfilePage = () => {
         </div>
 
         {/* Problems Solved Section */}
-        <div className="bg-gray-900 rounded-2xl shadow-lg p-8 mb-8 border border-gray-800">
+        <div className=" rounded-2xl shadow-lg p-8 mb-8 border border-gray-800">
           <h2 className="text-2xl font-bold text-gray-100 mb-6">Problems Solved</h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -264,7 +265,7 @@ const ProfilePage = () => {
               <h3 className="text-lg font-semibold text-gray-300 mb-4">Recent Solutions</h3>
               <div className="space-y-3">
                 {solvedLast5.map((problem, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gray-800 rounded-lg border border-gray-700">
+                  <div key={index} className="flex items-center justify-between p-3  rounded-lg border border-gray-700">
                     <div>
                       <div className="font-medium text-gray-100">{problem.title}</div>
                       <div className="text-sm text-gray-400">{problem.createdAt.split("T")[0]}</div>
@@ -281,7 +282,7 @@ const ProfilePage = () => {
               <h3 className="text-lg font-semibold text-gray-300 mb-4">Difficulty Breakdown</h3>
               <div className="overflow-hidden rounded-lg border border-gray-700">
                 <table className="w-full">
-                  <thead className="bg-gray-800">
+                  <thead className="">
                     <tr>
                       <th className="px-4 py-3 text-left font-medium text-gray-300">Difficulty</th>
                       <th className="px-4 py-3 text-right font-medium text-gray-300">Solved</th>
@@ -326,7 +327,7 @@ const ProfilePage = () => {
         </div>
 
         {/* My Playlists Section */}
-        <div className="bg-gray-900 rounded-2xl shadow-lg p-8 border border-gray-800">
+        <div className=" rounded-2xl shadow-lg p-8 border border-gray-800">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-100">My Playlists</h2>
            
@@ -374,7 +375,7 @@ const ProfilePage = () => {
                 </div>
                 
                 {expandedPlaylist === playlist.id && (
-                  <div className="px-4 pb-4 border-t border-gray-700 bg-gray-800">
+                  <div className="px-4 pb-4 border-t border-gray-700 ">
                     <div className="mt-4 space-y-2">
                       {playlist.problems.length === 0 ? (
                         <p className="text-gray-400 text-center py-4">No problems in this playlist yet</p>
@@ -401,6 +402,13 @@ const ProfilePage = () => {
                 )}
               </div>
             ))}
+          </div>
+          <div className='flex justify-end w-[20%]'>
+            <LogoutButton className="  gap-2 px-3 py-2 z-50 rounded-lg text-white/90 hover:bg-[#4FD1C5] hover:text-white transition-all duration-200 ease-in-out w-[5%] text-left">
+                  <LogOut className="w-4 h-4" />
+                  <span>Logout</span>
+          </LogoutButton>
+
           </div>
         </div>
       </div>

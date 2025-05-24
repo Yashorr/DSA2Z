@@ -11,7 +11,7 @@ import AddToPlaylist from './AddToPlaylist';
 
 const ProblemTable = ({problems}) => {
     const {authUser} = useAuthStore()
-    const {createPlaylist} = usePlaylistStore (); 
+    const {createPlaylist,getAllPlaylists} = usePlaylistStore (); 
     const {isDeletingProblem,isUpdatingProblem, onDeleteProblem,onEditProblem} = useActions();
 
     const [isCreateModelOpen, setIsCreateModelOpen] = useState(false);
@@ -41,7 +41,7 @@ const ProblemTable = ({problems}) => {
         .filter((problem) => selectedTag == "ALL" ? true : problem.tags?.includes(selectedTag))
     },[problems , search, difficulty, selectedTag]);
 
-    const itemsPerPage = 5;
+    const itemsPerPage = 10;
 
     const totalPages = Math.ceil(filteredProblems.length/itemsPerPage);
     const paginatedProblems = useMemo(() =>{
@@ -63,6 +63,7 @@ const ProblemTable = ({problems}) => {
 
     const handleCreatePlaylist = async (data) =>{
         await createPlaylist(data);
+        await getAllPlaylists();
     }
 
 

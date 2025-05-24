@@ -29,7 +29,7 @@ const ProblemPage = () => {
   const { id } = useParams()
   const { getProblemById, problem, isProblemLoading } = useProblemStore()
   const [code, setCode] = useState("")
-  const [selectedLanguage, setSelectedLanguage] = useState("javascript")
+  const [selectedLanguage, setSelectedLanguage] = useState("java")
   const [activeTab, setActiveTab] = useState("description")
   const [testCases, setTestCases] = useState([])
   const [isBookmarked, setIsBookmarked] = useState(false)
@@ -40,7 +40,7 @@ const ProblemPage = () => {
     
     getProblemById(id)
     getSubmissionCountForProblem(id);
-    
+    getSubmissionForProblem(id)
     clearSubmission()
     
     // Don't log problem here as it won't be updated yet
@@ -49,10 +49,19 @@ const ProblemPage = () => {
   useEffect(()=>{
     if(activeTab==="submissions"){
       getSubmissionForProblem(id)
+      getSubmissionCountForProblem(id);
     }
     
-  },[activeTab,id])
+  },[activeTab,id,submissionForSubmissionStore])
 
+  const returnSuccess = () =>{
+
+    const suc=submissionForSubmissionStore?.filter((ele)=> ele.status=="Accepted").length;
+
+    return (suc/submissionCount)*100 || 0;
+
+  }
+  
  
   
 
@@ -180,6 +189,8 @@ const ProblemPage = () => {
     )
   }
 
+  
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-base-300 to-base-200 max-w-7xl w-full">
        <div className="fixed top-16 left-0 w-1/3 h-1/3 bg-[#4FD1C5] opacity-20 blur-3xl z-[-1] rounded-md"></div>
@@ -208,7 +219,7 @@ const ProblemPage = () => {
               <span>{submissionCount} Submissions</span>
               <span className="text-base-content/30">•</span>
               <ThumbsUp className="w-4 h-4" />
-              <span>95% Success Rate</span>
+              <span>{returnSuccess()}% Success Rate</span>
             </div>
           </div>
         </div>

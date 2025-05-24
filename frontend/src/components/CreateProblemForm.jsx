@@ -478,6 +478,7 @@ const CreateProblemForm = () => {
 
     const onSubmit = async (value) =>{
         try {
+          console.log("value",value);
           setIsLoading(true)
           const response = await axiosInstance.post("/problems/create-problem" , value)
           console.log(response)
@@ -503,11 +504,11 @@ const CreateProblemForm = () => {
 
   return (
     <div className='container mx-auto py-8 px-4 max-w-7xl'>
-  <div className="card bg-base-100 shadow-xl">
+  <div className="card  shadow-xl">
         <div className="card-body p-6 md:p-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 pb-4 border-b">
             <h2 className="card-title text-2xl md:text-3xl flex items-center gap-3">
-              <FileText className="w-6 h-6 md:w-8 md:h-8 text-primary" />
+              <FileText className="w-6 h-6 md:w-8 md:h-8 text-[#4FD1C5]" />
               Create Problem
             </h2>
 
@@ -534,7 +535,7 @@ const CreateProblemForm = () => {
               </div>
               <button
                 type="button"
-                className="btn btn-secondary gap-2"
+                className="btn btn-secondary bg-[#F97316] gap-2"
                 onClick={loadSampleData}
               >
                 <Download className="w-4 h-4" />
@@ -612,7 +613,7 @@ const CreateProblemForm = () => {
             </div>
 
             {/* Tags */}
-            <div className="card bg-base-200 p-4 md:p-6 shadow-md">
+            <div className="card  p-4 md:p-6 shadow-md">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg md:text-xl font-semibold flex items-center gap-2">
                   <BookOpen className="w-5 h-5" />
@@ -620,7 +621,7 @@ const CreateProblemForm = () => {
                 </h3>
                 <button
                   type="button"
-                  className="btn btn-primary btn-sm"
+                  className="btn btn-primary bg-[#4FD1C5] text-white btn-sm"
                   onClick={() => appendTag("")}
                 >
                   <Plus className="w-4 h-4 mr-1" /> Add Tag
@@ -656,7 +657,7 @@ const CreateProblemForm = () => {
             </div>
 
             {/* Test Cases */}
-            <div className="card bg-base-200 p-4 md:p-6 shadow-md">
+            <div className="card  p-4 md:p-6 shadow-md">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg md:text-xl font-semibold flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5" />
@@ -664,7 +665,7 @@ const CreateProblemForm = () => {
                 </h3>
                 <button
                   type="button"
-                  className="btn btn-primary btn-sm"
+                  className="btn btn-primary bg-[#4FD1C5] text-white btn-sm"
                   onClick={() => appendTestCase({ input: "", output: "" })}
                 >
                   <Plus className="w-4 h-4 mr-1" /> Add Test Case
@@ -672,7 +673,7 @@ const CreateProblemForm = () => {
               </div>
               <div className="space-y-6">
                 {testCaseFields.map((field, index) => (
-                  <div key={field.id} className="card bg-base-100 shadow-md">
+                  <div key={field.id} className="card  shadow-md">
                     <div className="card-body p-4 md:p-6">
                       <div className="flex justify-between items-center mb-4">
                         <h4 className="text-base md:text-lg font-semibold">
@@ -745,7 +746,7 @@ const CreateProblemForm = () => {
               {["JAVASCRIPT", "PYTHON", "JAVA"].map((language) => (
                 <div
                   key={language}
-                  className="card bg-base-200 p-4 md:p-6 shadow-md"
+                  className="card  p-4 md:p-6 shadow-md"
                 >
                   <h3 className="text-lg md:text-xl font-semibold mb-6 flex items-center gap-2">
                     <Code2 className="w-5 h-5" />
@@ -754,7 +755,7 @@ const CreateProblemForm = () => {
 
                   <div className="space-y-6">
                     {/* Starter Code */}
-                    <div className="card bg-base-100 shadow-md">
+                    <div className="card  shadow-md">
                       <div className="card-body p-4 md:p-6">
                         <h4 className="font-semibold text-base md:text-lg mb-4">
                           Starter Code Template
@@ -793,7 +794,7 @@ const CreateProblemForm = () => {
                     </div>
 
                     {/* Reference Solution */}
-                    <div className="card bg-base-100 shadow-md">
+                    <div className="card shadow-md">
                       <div className="card-body p-4 md:p-6">
                         <h4 className="font-semibold text-base md:text-lg mb-4 flex items-center gap-2">
                           <CheckCircle2 className="w-5 h-5 text-success" />
@@ -833,7 +834,7 @@ const CreateProblemForm = () => {
                     </div>
 
                     {/* Examples */}
-                    <div className="card bg-base-100 shadow-md">
+                    <div className="card  shadow-md">
                       <div className="card-body p-4 md:p-6">
                         <h4 className="font-semibold text-base md:text-lg mb-4">
                           Example
@@ -898,7 +899,7 @@ const CreateProblemForm = () => {
             </div>
 
             {/* Additional Information */}
-            <div className="card bg-base-200 p-4 md:p-6 shadow-md">
+            <div className="card  p-4 md:p-6 shadow-md">
               <h3 className="text-lg md:text-xl font-semibold mb-6 flex items-center gap-2">
                 <Lightbulb className="w-5 h-5 text-warning" />
                 Additional Information
@@ -949,7 +950,7 @@ const CreateProblemForm = () => {
             </div>
 
             <div className="card-actions justify-end pt-4 border-t">
-              <button type="submit" className="btn btn-primary btn-lg gap-2">
+              <button type="submit" className="btn btn-primary bg-[#4FD1C5] text-white btn-lg gap-2">
                 {isLoading ? (
                   <span className="loading loading-spinner text-white"></span>
                 ) : (
