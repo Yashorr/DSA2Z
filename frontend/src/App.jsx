@@ -13,6 +13,7 @@ import ProblemPage from './pages/ProblemPage'
 import ProfilePage from './pages/ProfilePage'
 import LandingPage from './pages/LandingPage'
 import ProblemTablePage from './pages/ProblemTablePage'
+import EditProblem from './pages/EditProblem'
 const App = () => {
   const {authUser, checkAuth ,isLoggedOut, isCheckingAuth} = useAuthStore()
   useEffect(() => {
@@ -46,6 +47,7 @@ const App = () => {
       
       <Route element={<AdminRoute />}>
         <Route path="/add-problem" element={authUser ? <AddProblem /> : <Navigate to={"/login"}  />} />
+        <Route path='/edit-problem/:id' element={authUser ? <EditProblem /> : <Navigate to={"/login"} />} />
       </Route>
       <Route path="/problem/:id" element={authUser ? <ProblemPage /> : <Navigate to={"/login"}   />} />
       <Route path="/profile" element ={authUser ? <ProfilePage /> : <Navigate to = {"/login"}  />} />

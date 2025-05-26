@@ -10,6 +10,8 @@ const ProblemTablePage = () => {
     getAllProblem();
   },[getAllProblem]);
 
+  console.log(problems.map((ele)=>ele.title));
+
   if(isProblemsLoading){
     return (
       <div className='flex items-center justify-center h-screen'> 

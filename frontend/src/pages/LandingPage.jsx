@@ -57,7 +57,7 @@ const LandingPage = () => {
     { label: "Problems", value: "30+" },
     { label: "Topics", value: "20+" },
     { label: "Difficulty Levels", value: "3" },
-    { label: "languages" , value: "3v c" },
+    { label: "languages" , value: "3" },
   ];
 
   return (

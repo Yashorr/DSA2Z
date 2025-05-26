@@ -54,6 +54,8 @@ const ProblemTable = ({problems}) => {
     const handleDelete = (problemId) =>{
       onDeleteProblem(problemId);
     }
+
+
     const handleAddToPlaylist = (problemId) =>{
       setIsAddToPlaylistModelOpen(true);
       setIdToAdd(problemId);
@@ -178,9 +180,10 @@ const ProblemTable = ({problems}) => {
                               {isDeletingProblem ? <Loader2 className='animate-spin h-4 w-4' /> :  <TrashIcon className="w-4 h-4 text-white" />}
                              
                             </button>
-                            <button disabled className="btn btn-sm btn-warning">
+                            <Link to={`/edit-problem/${problem.id}`} className="btn btn-sm btn-warning" >
                               <PencilIcon className="w-4 h-4 text-white" />
-                            </button>
+
+                            </Link>
                           </div>
                         )}
                         <button
