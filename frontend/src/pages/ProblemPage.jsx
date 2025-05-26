@@ -33,7 +33,7 @@ const ProblemPage = () => {
   const [activeTab, setActiveTab] = useState("description")
   const [testCases, setTestCases] = useState([])
   const [isBookmarked, setIsBookmarked] = useState(false)
-  const {isExecuting , submission,clearSubmission, executeCode} = useExecutionStore();
+  const {isExecuting , submission,clearSubmission, executeCode , isRunning ,runResult, runCode,clearRun } = useExecutionStore();
   const {submissionForSubmissionStore , isLoading:isSubmissionsLoading ,submissionCount,getSubmissionForProblem , getSubmissionCountForProblem  } = useSubmissionStore();
   // First useEffect - for fetching problem data
   useEffect(() => {
@@ -42,6 +42,7 @@ const ProblemPage = () => {
     getSubmissionCountForProblem(id);
     getSubmissionForProblem(id)
     clearSubmission()
+    clearRun()
     
     // Don't log problem here as it won't be updated yet
   }, [id, getProblemById]) // Added getProblemById to dependency array
@@ -58,7 +59,7 @@ const ProblemPage = () => {
 
     const suc=submissionForSubmissionStore?.filter((ele)=> ele.status=="Accepted").length;
 
-    return (suc/submissionCount)*100 || 0;
+    return ((suc/submissionCount)*100) || 0;
 
   }
   
@@ -91,7 +92,7 @@ const ProblemPage = () => {
     setCode(problem.codeSnippets?.[value.toUpperCase()] || "")
   }
 
-  const handleRunCode = (e) =>{
+  const handleSubCode = (e) =>{
     e.preventDefault()
     try {
         const language_id = getLanguageId(selectedLanguage);
@@ -99,6 +100,24 @@ const ProblemPage = () => {
         const expected_output = testCases.map((tc) => tc.output);
        
         executeCode(code,language_id, stdin, expected_output , id);
+        clearRun();
+        
+    } catch (error) {
+        console.error("ERROR EXECUTING CODE" , error);
+
+        
+    }
+  }
+
+   const handleRunCode = (e) =>{
+    e.preventDefault()
+    try {
+        const language_id = getLanguageId(selectedLanguage);
+        const stdin = testCases.map((tc) => tc.input);
+        const expected_output = testCases.map((tc) => tc.output);
+       
+        runCode(code,language_id, stdin, expected_output , id);
+        clearSubmission();
         
     } catch (error) {
         console.error("ERROR EXECUTING CODE" , error);
@@ -219,7 +238,7 @@ const ProblemPage = () => {
               <span>{submissionCount} Submissions</span>
               <span className="text-base-content/30">•</span>
               <ThumbsUp className="w-4 h-4" />
-              <span>{returnSuccess()}% Success Rate</span>
+              <span>{returnSuccess().toFixed(2)}% Success Rate</span>
             </div>
           </div>
         </div>
@@ -316,17 +335,23 @@ const ProblemPage = () => {
 
               <div className="p-4 border-t border-base-300 bg-base-200">
                 <div className="flex justify-between items-center">
+                  
+                  <button className={`btn btn-success gap-2 ${
+                      isRunning ? "loading" : ""
+                    }`}
+                    onClick={handleRunCode}
+                    disabled={isRunning} >
+                      {!isRunning && <Play className="w-4 h-4" />}
+                    Run Code
+                  </button>
                   <button 
                     className={`btn btn-primary gap-2 ${
                       isExecuting ? "loading" : ""
                     }`}
-                    onClick={handleRunCode}
+                    onClick={handleSubCode}
                     disabled={isExecuting}
                   >
                     {!isExecuting && <Play className="w-4 h-4" />}
-                    Run Code
-                  </button>
-                  <button className="btn btn-success gap-2">
                     Submit Solution
                   </button>
                 </div>
@@ -336,8 +361,8 @@ const ProblemPage = () => {
         </div>
          <div className="card bg-base-100 shadow-xl mt-6">
           <div className="card-body">
-            {submission ? (
-              <SubmissionResults submission={submission} />
+            {runResult ? (
+              <SubmissionResults submission={runResult} />
             ) : (
               <>
                 <div className="flex items-center justify-between mb-6">
@@ -361,6 +386,15 @@ const ProblemPage = () => {
                     </tbody>
                   </table>
                 </div>
+              </>
+            )}
+
+            {submission ? (
+              <SubmissionResults submission={submission} />
+            ) : (
+              <>
+                
+                
               </>
             )}
           </div>

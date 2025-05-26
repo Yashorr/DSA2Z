@@ -13,6 +13,7 @@ const LandingPage = () => {
   const categories = [
     { id: "all", name: "All Problems" },
     { id: "arrays", name: "Arrays & Hashing" },
+    { id : "hash-table" , name : "Hash Table" },
     { id: "dp", name: "Dynamic Programming" },
     { id: "graphs", name: "Graphs" },
     { id: "trees", name: "Trees" },
@@ -20,28 +21,28 @@ const LandingPage = () => {
 
   const featuredProblems = [
     { 
-      id: 1, 
+      id: "041fa3dd-a1cc-481c-8a43-e568c091e84d", 
       title: "Two Sum", 
       difficulty: "easy", 
       category: "arrays",
       description: "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target."
     },
     { 
-      id: 2, 
+      id: "e5775300-40fe-4e48-9e3c-84d6b6b2be0e", 
       title: "Longest Palindromic Substring", 
       difficulty: "medium", 
       category: "dp",
       description: "Given a string s, return the longest palindromic substring in s."
     },
     { 
-      id: 3, 
-      title: "Merge K Sorted Lists", 
+      id: "aa0cf884-6377-4b0a-9130-a5e0d5796695", 
+      title: "Word Ladder", 
       difficulty: "hard", 
-      category: "trees",
-      description: "You are given an array of k linked-lists lists, each linked-list is sorted in ascending order."
+      category: "hash-table",
+      description: "Find the shortest sequence of one-letter transformations from beginWord to endWord using words from wordList, where adjacent words differ by exactly one character"
     },
     { 
-      id: 4, 
+      id: "30dda26e-eb89-4a6d-a4ba-c4da0167c22d", 
       title: "Number of Islands", 
       difficulty: "medium", 
       category: "graphs",
@@ -117,9 +118,7 @@ const LandingPage = () => {
               Start Practicing <ArrowRight className="ml-2 h-5 w-5" />
               
             </Link>
-            <button className="bg-transparent border border-gray-600 px-6 py-3 rounded-lg hover:bg-white hover:text-gray-900 transition">
-              Explore Learning Paths
-            </button>
+            
           </div>
         </div>
       </div>
@@ -175,12 +174,11 @@ const LandingPage = () => {
                 </div>
               </div>
               <p className="text-gray-400 mb-4">{problem.description}</p>
-              <a 
-                href="#" 
+              <Link to={`/problem/${problem.id}`} 
                 className="text-[#4FD1C5] hover:text-[#F97316] transition flex items-center"
               >
                 Solve Now <ArrowRight className="ml-1 h-4 w-4" />
-              </a>
+              </Link>
             </div>
           ))}
         </div>
@@ -226,33 +224,7 @@ const LandingPage = () => {
                 The ultimate platform to master data structures and algorithms.
               </p>
             </div>
-            <div>
-              <h3 className="text-lg font-medium mb-4">Resources</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-[#4FD1C5] transition">Problems</a></li>
-                <li><a href="#" className="hover:text-[#4FD1C5] transition">Learning Paths</a></li>
-                <li><a href="#" className="hover:text-[#4FD1C5] transition">Contests</a></li>
-                <li><a href="#" className="hover:text-[#4FD1C5] transition">Interview Prep</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-medium mb-4">Company</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-[#4FD1C5] transition">About</a></li>
-                <li><a href="#" className="hover:text-[#4FD1C5] transition">Careers</a></li>
-                <li><a href="#" className="hover:text-[#4FD1C5] transition">Blog</a></li>
-                <li><a href="#" className="hover:text-[#4FD1C5] transition">Contact</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-medium mb-4">Connect</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-[#4FD1C5] transition">Discord</a></li>
-                <li><a href="#" className="hover:text-[#4FD1C5] transition">Twitter</a></li>
-                <li><a href="#" className="hover:text-[#4FD1C5] transition">GitHub</a></li>
-                <li><a href="#" className="hover:text-[#4FD1C5] transition">YouTube</a></li>
-              </ul>
-            </div>
+            
           </div>
           <div className="mt-12 pt-8 border-t border-gray-800 text-gray-400 text-center">
             <p>© 2025 DSA2Z. All rights reserved.</p>

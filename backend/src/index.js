@@ -7,6 +7,20 @@ import executionRoutes from "./routes/executeCode.routes.js";
 import submissionRoutes from "./routes/submission.routes.js";
 import playlistRoutes from "./routes/playlist.routes.js";
 import cors from "cors";
+import rateLimit from "express-rate-limit";
+
+export const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: 'Too many requests, please try again later.'
+});
+
+export const judge0Limiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 5, // limit each IP to 5 code executions per minute
+  message: 'Too many code submissions, please wait.'
+});
+
 
 dotenv.config();
 
@@ -19,6 +33,9 @@ app.use(cors({
     origin : ["http://localhost:5173" ],
     credentials : true
 }));
+
+app.use('/api/v1/', apiLimiter);
+app.use('/api/v1/execute-code', judge0Limiter);
 
 app.get("/",(req,res)=>{
     res.send("Hello guys, Welcome to DSA2Z🐬")
