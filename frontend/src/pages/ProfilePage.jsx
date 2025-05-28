@@ -3,7 +3,7 @@ import { ChevronDown, Plus, Trash2, Edit, Filter, Loader, LogOut } from 'lucide-
 import { useAuthStore } from '../store/useAuthStore';
 import { useSubmissionStore } from '../store/useSubmissionStore';
 import { useProblemStore } from '../store/useProblemStore';
-import { usePlaylistStore } from '../store/usePlayListStore';
+import {usePlaylistStore} from "../store/usePlaylistStore"
 import LogoutButton from '../components/LogoutButton';
 
 const ProfilePage = () => {
