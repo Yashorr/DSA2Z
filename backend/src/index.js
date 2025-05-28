@@ -30,7 +30,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin : ["http://localhost:5173","https://dsa2z.in",'https://dsa-2-z.vercel.app/' ],
+    origin : ["http://localhost:5173","https://dsa2z.in",'https://dsa-2-z.vercel.app/' ,"https://www.dsa2z.in"],
     credentials : true
 }));
 
