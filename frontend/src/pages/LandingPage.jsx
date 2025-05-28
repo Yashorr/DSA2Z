@@ -62,7 +62,7 @@ const LandingPage = () => {
   ];
 
   return (
-     <div className='w-full px-15 py-5'>
+     <div className='w-full px-20 py-10'>
          
     <div className="min-h-screen    text-white overflow-hidden relative">
       {/* Gradient Blobs */}
@@ -71,7 +71,7 @@ const LandingPage = () => {
       
      
       {/* Navigation */}
-      <nav className="container mx-auto px-6 py-6 flex justify-between items-center">
+      <nav className="container mx-auto px-6 py-6 flex items-center justify-between items-center">
         <div className="flex items-center space-x-2">
           <Link to="/" className="flex items-center gap-3 transition-transform scale-200 pl-5 hover:scale-205 duration-200">
           <img src="/logo.png" alt="DSA2Z Logo" className="w-25 h-10" />
