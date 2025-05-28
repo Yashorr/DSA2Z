@@ -62,7 +62,7 @@ const LandingPage = () => {
   ];
 
   return (
-     <div className='w-full'>
+     <div className='w-full px-10 py-10'>
          
     <div className="min-h-screen    text-white overflow-hidden relative">
       {/* Gradient Blobs */}
