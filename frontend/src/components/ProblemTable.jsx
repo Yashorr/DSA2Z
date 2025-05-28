@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import { Bookmark, PencilIcon, Trash, TrashIcon, Plus, Loader2 } from "lucide-react";
 import { useActions } from '../store/useAction';
-import { usePlaylistStore } from '../store/usePlayListStore';
+import { usePlaylistStore } from '../store/usePlaylistStore';
 import CreatePlaylistModal from './CreatePlaylistModal';
 import AddToPlaylist from './AddToPlaylist';
 

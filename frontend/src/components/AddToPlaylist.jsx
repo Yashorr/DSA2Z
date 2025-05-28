@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { X, Plus, Loader } from "lucide-react"
-import { usePlaylistStore } from "../store/usePlayListStore"
+import { usePlaylistStore } from "../store/usePlaylistStore"
 
 const AddToPlaylist = ({ isOpen, onClose, problemId }) => {
   const { playlists, isLoading, getAllPlaylists, addProblemToPlaylist } = usePlaylistStore()
