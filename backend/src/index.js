@@ -8,6 +8,7 @@ import submissionRoutes from "./routes/submission.routes.js";
 import playlistRoutes from "./routes/playlist.routes.js";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
+import aiAnalyzeRoutes from "./routes/aiAnalyze.routes.js";
 
 export const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -46,6 +47,7 @@ app.use("/api/v1/problems",problemRoutes);
 app.use("/api/v1/execute-code",executionRoutes);
 app.use("/api/v1/submission", submissionRoutes);
 app.use("/api/v1/playlist", playlistRoutes);
+app.use("/api/v1/ai-analyze",aiAnalyzeRoutes);
 
 app.listen(process.env.PORT, ()=>{
     console.log(`Server is running at port ${process.env.PORT}`);
