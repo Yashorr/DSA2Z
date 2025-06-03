@@ -223,7 +223,7 @@ const LandingPage = () => {
               <p className="text-gray-400">
                 The ultimate platform to master data structures and algorithms.
               </p>
-              <Link to="/cancellation-and-refund" className="text-gray-400 hover:text-[#4FD1C5] transition">Cancellation & Refund</Link>
+              <Link to="/cancellation-and-refund" className="text-gray-400 hover:text-[#4FD1C5] transition">Cancellation & Refund </Link>
               <Link to="/shipping-and-delivery" className="text-gray-400 hover:text-[#4FD1C5] transition">Shipping & Delivery</Link>
             </div>
 

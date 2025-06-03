@@ -2,7 +2,7 @@ import React from 'react';
 
 const ShippingDeliveryPolicy = () => {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10 text-gray-800">
+    <div className="max-w-3xl mx-auto px-4 py-10 text-gray-200">
       <h1 className="text-3xl font-bold mb-6">Shipping & Delivery Policy</h1>
 
       <p className="mb-4">
@@ -48,7 +48,7 @@ const ShippingDeliveryPolicy = () => {
         Our platform is accessible 24/7. However, token-based AI features may be temporarily unavailable during server maintenance or high-load periods. Users will be notified in such cases.
       </p>
 
-      <p className="text-sm text-gray-600 mt-8">
+      <p className="text-sm text-gray-400 mt-8">
         Last updated: June 3, 2025
       </p>
     </div>

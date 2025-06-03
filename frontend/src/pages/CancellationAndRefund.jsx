@@ -2,7 +2,7 @@ import React from 'react';
 
 const CancellationAndRefund = () => {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10 text-gray-800">
+    <div className="max-w-3xl mx-auto px-4 py-10 text-gray-200">
       <h1 className="text-3xl font-bold mb-6">Refund & Cancellation Policy</h1>
 
       <p className="mb-4">
@@ -50,7 +50,7 @@ const CancellationAndRefund = () => {
 
       <h2 className="text-xl font-semibold mt-6 mb-2">5. Refund Request Process</h2>
       <p className="mb-4">
-        To request a refund, please email us at <a href="mailto:yashovardhans321@gmail.com" className="text-blue-600 underline">support@dsa2z.com</a> with:
+        To request a refund, please email us at <a href="mailto:yashovardhans321@gmail.com" className="text-blue-400 underline">support@dsa2z.com</a> with:
       </p>
       <ul className="list-disc list-inside mb-4">
         <li>Your registered email address</li>
@@ -61,7 +61,7 @@ const CancellationAndRefund = () => {
         Our team will review your request and respond within 3–5 business days.
       </p>
 
-      <p className="text-sm text-gray-600 mt-8">
+      <p className="text-sm text-gray-400 mt-8">
         Last updated: June 3, 2025
       </p>
     </div>
