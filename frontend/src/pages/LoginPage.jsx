@@ -166,9 +166,7 @@ const LoginPage = () => {
                 Terms of Service
               </a>{" "}
               and{" "}
-              <a href="#" className="text-[#4FD1C5] hover:text-[#4FD1C5]/80">
-                Privacy Policy
-              </a>
+              <Link to="/privacy-policy" className="text-[#4FD1C5] hover:text-[#4FD1C5] ">  Privacy Policy  </Link>
             </p>
           </div>
         </div>
