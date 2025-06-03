@@ -223,7 +223,10 @@ const LandingPage = () => {
               <p className="text-gray-400">
                 The ultimate platform to master data structures and algorithms.
               </p>
+              <Link to="/privacy-policy" className="text-gray-400 hover:text-[#4FD1C5] transition">Privacy Policy</Link>
             </div>
+
+
             
           </div>
           <div className="mt-12 pt-8 border-t border-gray-800 text-gray-400 text-center">
