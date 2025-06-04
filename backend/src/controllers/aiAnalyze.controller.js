@@ -1,5 +1,6 @@
  import { GoogleGenAI } from "@google/genai";
 import { text } from "express";
+import { db } from "../libs/db.js";
 export const aiAnalyze = async (req, res) =>{
     try {
         const {source_code,description} = req.body;
@@ -82,6 +83,11 @@ export const aiAnalyze = async (req, res) =>{
     const match = raw.match(/```json\s*([\s\S]*?)\s*```/i);
     const jsonString = match ? match[1] : raw.trim();
     const json = JSON.parse(jsonString);
+
+    await db.user.update({
+        where: { id: req.user.id },
+        data: { tokens: { decrement: 1 } },
+    });
 
     res.status(200).json(json);
     

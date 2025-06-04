@@ -17,6 +17,7 @@ import EditProblem from './pages/EditProblem'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import CancellationAndRefund from './pages/CancellationAndRefund'
 import ShippingDeliveryPolicy from './pages/ShippingDeliveryPolicy'
+import PricingPage from './pages/PricingPage'
 const App = () => {
   const {authUser, checkAuth ,isLoggedOut, isCheckingAuth} = useAuthStore()
   useEffect(() => {
@@ -56,6 +57,7 @@ const App = () => {
       <Route path="/profile" element ={authUser ? <ProfilePage /> : <Navigate to = {"/login"}  />} />
       
       <Route path="/problem" element={authUser ? <ProblemTablePage />: <Navigate to={"/login"}   />} />
+      <Route path="/pricing" element={authUser ? <PricingPage />: <Navigate to={"/login"}   />} />
       <Route path= "/privacy-policy" element = {<PrivacyPolicy />} />     
       <Route path='/cancellation-and-refund' element = {<CancellationAndRefund />} />
        <Route path="/shipping-and-delivery" element={<ShippingDeliveryPolicy />} />

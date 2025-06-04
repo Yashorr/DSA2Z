@@ -86,6 +86,10 @@ const LandingPage = () => {
                   
             <span>My Profile</span>
           </Link>
+          <Link to="/pricing" className="hover:text-[#4FD1C5] transition">
+                  
+            <span>Pricing</span>
+          </Link>
          {
           authUser?.role === "ADMIN" && (
             <Link to="/add-problem" className="hover:text-[#4FD1C5] transition">

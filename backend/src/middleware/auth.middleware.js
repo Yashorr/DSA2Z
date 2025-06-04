@@ -29,6 +29,7 @@ export const authMiddleware = async (req , res , next) =>{
                 name : true ,
                 email : true ,
                 role : true ,
+                tokens : true,
             }
         }) ;
         

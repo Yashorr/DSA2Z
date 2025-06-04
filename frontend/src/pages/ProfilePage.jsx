@@ -15,7 +15,7 @@ const ProfilePage = () => {
   const [showCreatePlaylist, setShowCreatePlaylist] = useState(false);
   const [newPlaylistName, setNewPlaylistName] = useState('');
 
-  const {authUser} = useAuthStore();
+  const {authUser,token} = useAuthStore();
   const {isLoading,submissionsList,getAllSubmissions} = useSubmissionStore();
   const {problems,isProblemsLoading, getProblemById,getAllProblem,getSolvedProblems ,isProblemSolved, solvedProblems} = useProblemStore();
   const {isLoading:isPlayListLoading , playlists,getAllPlaylists, removeProblemFromPlaylist,isRemovingProblem,deletePlaylist} = usePlaylistStore();
@@ -182,6 +182,13 @@ const ProfilePage = () => {
                 <label className="block text-sm font-medium text-gray-400 mb-2">User ID</label>
                 <div className="p-3  rounded-lg border border-gray-700 font-mono text-sm">{authUser.id}</div>
               </div>
+            </div>
+             <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-2">AI Tokens Left</label>
+                <div className="p-3  rounded-lg border border-gray-700">{token}</div>
+              </div>
+             
             </div>
           </div>
         </div>

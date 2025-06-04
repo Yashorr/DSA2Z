@@ -38,7 +38,8 @@ export const register= async (req , res )=>{
             secure : process.env.NODE_ENV !== "development",
             maxAge : 1000*60*60*24*7
 
-        })
+        }) 
+        
 
         res.status(201).json({
             success: "true",
@@ -47,7 +48,9 @@ export const register= async (req , res )=>{
                 id:newUser.id,
                 name:newUser.name,
                 email : newUser.email,
-                role : newUser.role
+                role : newUser.role,
+                tokens : newUser.tokens
+
             }
             
         })
@@ -99,7 +102,8 @@ export const login= async (req , res )=>{
                 id:user.id,
                 name:user.name,
                 email : user.email,
-                role : user.role
+                role : user.role,
+                tokens : newUser.tokens
             }
             
         })

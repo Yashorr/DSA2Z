@@ -9,6 +9,7 @@ import playlistRoutes from "./routes/playlist.routes.js";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import aiAnalyzeRoutes from "./routes/aiAnalyze.routes.js";
+import paymentRoutes from "./routes/payment.routes.js";
 
 export const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -31,7 +32,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin : ["http://localhost:5173","https://dsa2z.in",'https://dsa-2-z.vercel.app/' ,"https://www.dsa2z.in"],
+    origin : ["https://dsa2z.in",'https://dsa-2-z.vercel.app/' ,"https://www.dsa2z.in"],
     credentials : true
 }));
 
@@ -48,6 +49,7 @@ app.use("/api/v1/execute-code",executionRoutes);
 app.use("/api/v1/submission", submissionRoutes);
 app.use("/api/v1/playlist", playlistRoutes);
 app.use("/api/v1/ai-analyze",aiAnalyzeRoutes);
+app.use("/api/v1/payment",paymentRoutes)
 
 app.listen(process.env.PORT, ()=>{
     console.log(`Server is running at port ${process.env.PORT}`);

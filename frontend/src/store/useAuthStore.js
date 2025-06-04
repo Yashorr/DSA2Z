@@ -8,6 +8,7 @@ export const useAuthStore = create((set) => ({
     isLoggingIn : false,
     isCheckingAuth : false,
     isLoggedOut : false,
+    token : 0 ,
     
     
 
@@ -17,6 +18,8 @@ export const useAuthStore = create((set) => ({
              set({isCheckingAuth : true});
             const response = await axiosInstance.get('/auth/get-me');
             set({authUser: response.data.user});
+            set({token : response.data.user.tokens});
+            
             set({isLoggedOut : false})
             
             
@@ -43,6 +46,8 @@ export const useAuthStore = create((set) => ({
             set({ authUser: res.data.user });
             set({isLoggedOut : false})
 
+            set({token : response.data.user.tokens});
+
             toast.success(res.data.message);
         } catch (error) {
             console.log("Error signing up", error);
@@ -60,6 +65,8 @@ export const useAuthStore = create((set) => ({
             set({ authUser: res.data.user });
             set({isLoggedOut : false})
 
+            set({token : response.data.user.tokens});
+
             toast.success(res.data.message);
         } catch (error) {
             console.log("Error logging in", error);
@@ -76,7 +83,7 @@ export const useAuthStore = create((set) => ({
             set({ authUser: null });
             set({isLoggedOut : true})
            
-
+            set({token : 0});
             toast.success("Logout successful");
         } catch (error) {
             console.log("Error logging out", error);
@@ -85,6 +92,20 @@ export const useAuthStore = create((set) => ({
             set({isCheckingAuth : false});
         }
     },
+
+    updateTokens : () =>{
+        
+         set((state) => ({ token: state.token - 1 }));
+    },
+
+    addTokens : (value) =>{
+        
+         set((state) => ({ token: state.token + value }));
+    }
+
+
+
+
 
 
 }))

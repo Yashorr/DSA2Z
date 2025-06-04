@@ -10,8 +10,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 enum UserRole {
@@ -26,9 +27,11 @@ model User {
   image     String?
   role      UserRole @default(USER)
   password  String
+  tokens    Int      @default(3)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  payments      Payment[]
   problems      Problem[]
   submission    Submission[]
   problemSolved ProblemSolved[]
@@ -146,4 +149,16 @@ model ProblemInPlaylist {
   problem  Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
 
   @@unique([playlistId, problemId])
+}
+
+model Payment {
+  id              String   @id @default(uuid())
+  userId          String
+  amount          Int
+  tokens          Int
+  razorpayId      String
+  razorpayOrderId String
+  createdAt       DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
