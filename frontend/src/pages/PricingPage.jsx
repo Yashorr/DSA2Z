@@ -1,8 +1,14 @@
 import toast from "react-hot-toast";
 import { axiosInstance } from "../lib/axios";
 import { useAuthStore } from "../store/useAuthStore";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const PricingPage = () => {
+  const [paymentLoad, setPaymentLoad] = useState(false)
+  const [planSelected , setPlanSelected] = useState(null);
+  const navigate = useNavigate();
+
   const {addTokens} = useAuthStore();
   const pricingPlans = {
     standard: {
@@ -28,6 +34,11 @@ const PricingPage = () => {
 
   const handlePlanSelect = async (planName) => {
     try {
+
+      setPaymentLoad(true);
+
+      setPlanSelected(planName);
+
       
       const { data } = await axiosInstance.post("/payment/create-order", { planName });
 
@@ -50,14 +61,19 @@ const PricingPage = () => {
                 razorpay_signature: response.razorpay_signature
               });
 
-
+              setPaymentLoad(false)
               addTokens(data.tokens);
+              navigate("/");
               toast.success("Tokens added successfully!");
             
           } catch (error) {
             console.error(error)
-            toast.success("Error in verifying payment");
+            toast.error("Error in verifying payment");
             
+            
+          }finally{
+            setPaymentLoad(false)
+            setPlanSelected(null)
             
           }
         }
@@ -65,13 +81,30 @@ const PricingPage = () => {
 
       const rzp = new window.Razorpay(options);
       rzp.open();
+
+      setPaymentLoad(false)
+      setPlanSelected(null)
       
     } catch (error) {
       console.log(error);
-      
+      setPaymentLoad(false)
+      setPlanSelected(null)
+    }finally{
+       navigate("/");
     }
     
   };
+
+  const getButtonText = (planName) => {
+    if (paymentLoad && planSelected === planName) {
+      return "Processing..."
+    }
+    return "Get Started Now"
+  }
+
+  const isButtonLoading = (planName) => {
+    return paymentLoad && planSelected === planName
+  }
 
   return (
     <div>
@@ -212,13 +245,15 @@ const PricingPage = () => {
                 {/* CTA Button */}
                 <button
                   onClick={() => handlePlanSelect(plan.name)}
+                   disabled={isButtonLoading(plan.name)}
                   className={`w-full py-4 px-6 rounded-2xl font-semibold text-lg transition-all duration-300 ${
                     plan.popular
                       ? 'bg-[#EA630F] text-white hover:bg-[#DC580D] shadow-lg hover:shadow-xl'
                       : 'bg-gray-900 text-white hover:bg-[#EA630F] shadow-lg hover:shadow-xl'
                   } transform hover:scale-105`}
                 >
-                  Get Started Now
+                  {getButtonText(plan.name)}
+
                 </button>
               </div>
             </div>

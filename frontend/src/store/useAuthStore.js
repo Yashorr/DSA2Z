@@ -46,9 +46,9 @@ export const useAuthStore = create((set) => ({
             set({ authUser: res.data.user });
             set({isLoggedOut : false})
 
-            set({token : response.data.user.tokens});
+            set({token : res.data.user.tokens});
 
-            toast.success(res.data.message);
+            toast.success("Credited 3 demo AI Tokens");
         } catch (error) {
             console.log("Error signing up", error);
             toast.error("Error signing up");
@@ -65,7 +65,7 @@ export const useAuthStore = create((set) => ({
             set({ authUser: res.data.user });
             set({isLoggedOut : false})
 
-            set({token : response.data.user.tokens});
+            set({token : res.data.user.tokens});
 
             toast.success(res.data.message);
         } catch (error) {
