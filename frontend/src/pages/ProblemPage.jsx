@@ -67,7 +67,7 @@ const ProblemPage = () => {
 
     const suc=submissionForSubmissionStore?.filter((ele)=> ele.status=="Accepted").length;
 
-    return ((suc/submissionForSubmissionStore.length)*100) || 0;
+    return ((suc/submissionCount)*100) || 0;
 
   }
   
