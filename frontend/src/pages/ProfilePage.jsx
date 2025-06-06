@@ -226,6 +226,8 @@ const ProfilePage = () => {
                         borderRadius: '8px',
                         color: '#F3F4F6'
                       }} 
+                      labelStyle={{ color: '#F3F4F6' }}
+                      itemStyle={{ color: '#F3F4F6' }} 
                     />
                     <Legend />
                   </PieChart>
