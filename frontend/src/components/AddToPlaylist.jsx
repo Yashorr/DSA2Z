@@ -27,8 +27,8 @@ const AddToPlaylist = ({ isOpen, onClose, problemId }) => {
     fetchData();
   }}, [isOpen, getAllPlaylists])
 
-  // Debug the playlists data
-  console.log("Playlists data:", playlists)
+ 
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault()

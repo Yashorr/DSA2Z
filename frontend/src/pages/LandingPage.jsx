@@ -55,7 +55,7 @@ const LandingPage = () => {
     : featuredProblems.filter(problem => problem.category === selectedCategory);
 
   const stats = [
-    { label: "Problems", value: "30+" },
+    { label: "Problems", value: "50+" },
     { label: "Topics", value: "20+" },
     { label: "Difficulty Levels", value: "3" },
     { label: "languages" , value: "3" },
@@ -111,14 +111,15 @@ const LandingPage = () => {
         <div className="max-w-3xl">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             Master <span className="text-[#4FD1C5]">Data Structures</span> & <span className="text-[#F97316]">Algorithms</span> 
-            <br /> Step by Step
+            <br /> with AI-Powered Insights
           </h1>
           <p className="text-xl text-gray-300 mb-8">
-            A comprehensive platform to help you excel in coding interviews with curated problems, 
-            efficient solutions, and interactive learning paths.
+          Solve curated problems and get real-time AI feedback to improve code quality, efficiency, and logic.<br/>
+
+          <span className="text-2xl font-bold text-gray-100 bg-gradient-to-r from-[#4FD1C5] to-[#F97316] bg-clip-text text-transparent mb-2">3 free tokens on signup </span>
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link to="/problem" className="bg-gradient-to-r from-[#4FD1C5] to-[#F97316] px-6 py-3 rounded-lg text-white font-medium hover:opacity-90 transition flex items-center justify-center">
+            <Link to="/problem" className="bg-gradient-to-r from-[#4FD1C5] via-gray to-[#F97316] px-6 py-3 rounded-lg text-white font-medium hover:opacity-90 transition flex items-center justify-center">
               Start Practicing <ArrowRight className="ml-2 h-5 w-5" />
               
             </Link>
@@ -128,7 +129,7 @@ const LandingPage = () => {
       </div>
 
       {/* Stats Section */}
-      <div className=" py-12">
+      <div className=" py-6">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -200,13 +201,13 @@ const LandingPage = () => {
       {/* Call to Action */}
       <div className=" py-20">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Master DSA?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Master DSA with a Smart Edge?</h2>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Join thousands of developers who are improving their coding skills and acing interviews with DSA2Z.
+            Join thousands of developers sharpening their coding skills using DSA2Z. Solve problems and get AI-powered insights that help you grow faster and code smarter.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to={'/problem'} className="bg-gradient-to-r from-[#4FD1C5] to-[#F97316] px-8 py-4 rounded-lg text-white font-medium hover:opacity-90 transition">
-              Get Started for Free
+            <Link to={'/pricing'} className="bg-gradient-to-r from-[#4FD1C5] via-gray to-[#F97316] px-8 py-4 rounded-lg text-white font-medium hover:opacity-90 transition">
+              Get Started 
             </Link>
             
           </div>
