@@ -28,7 +28,7 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 export const pollBatchResult = async (tokens) =>{
    while(true){
        console.log("Tokens",tokens)
-       console.log("Api key",process.env.JUDGE0_BASE_URL)
+       console.log("Api key",process.env.JUDGE0_API_KEY)
      const {data} = await axios.get(`${process.env.JUDGE0_BASE_URL}/submissions/batch`,{
         params:{
             "tokens": tokens.join(",") ,
