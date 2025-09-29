@@ -29,15 +29,19 @@ export const pollBatchResult = async (tokens) =>{
    while(true){
        console.log("Tokens",tokens)
        console.log("Api key",process.env.JUDGE0_API_KEY)
-     const {data} = await axios.get(`${process.env.JUDGE0_BASE_URL}/submissions/batch`,{
-        params:{
-            "tokens": tokens.join(",") ,
-            "base64_encoded": false ,
-        }},
-        {
-            headers:{ 'Authorization': `Bearer ${process.env.JUDGE0_API_KEY}`} 
-        }
-    )
+     const { data } = await axios.get(
+          `${process.env.JUDGE0_BASE_URL}/submissions/batch`,
+          {
+            params: {
+              tokens: tokens.join(","),
+              base64_encoded: false,
+            },
+            headers: {
+              Authorization: `Bearer ${process.env.JUDGE0_API_KEY}`,
+            },
+          }
+        );
+
     console.log("Data",data)
 
     const results = data.submissions;
