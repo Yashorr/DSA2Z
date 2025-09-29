@@ -38,6 +38,7 @@ export const pollBatchResult = async (tokens) =>{
     )
 
     const results = data.submissions;
+    console.log("Results",results);
 
     const isAllDone = results.every(
         (r)=> r.status.id !== 1 && r.status.id !== 2
