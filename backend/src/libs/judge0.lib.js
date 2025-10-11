@@ -27,17 +27,25 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const pollBatchResult = async (tokens) =>{
    while(true){
-     const {data} = await axios.get(`${process.env.JUDGE0_BASE_URL}/submissions/batch`,{
-        params:{
-            "tokens": tokens.join(",") ,
-            "base64_encoded": false ,
-        }},
-        {
-            headers:{ 'Authorization': `Bearer ${process.env.JUDGE0_API_KEY}`} 
-        }
-    )
+       console.log("Tokens",tokens)
+       console.log("Api key",process.env.JUDGE0_API_KEY)
+     const { data } = await axios.get(
+          `${process.env.JUDGE0_BASE_URL}/submissions/batch`,
+          {
+            params: {
+              tokens: tokens.join(","),
+              base64_encoded: false,
+            },
+            headers: {
+              Authorization: `Bearer ${process.env.JUDGE0_API_KEY}`,
+            },
+          }
+        );
+
+    console.log("Data",data)
 
     const results = data.submissions;
+    console.log("Results",results);
 
     const isAllDone = results.every(
         (r)=> r.status.id !== 1 && r.status.id !== 2
